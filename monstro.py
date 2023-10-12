@@ -3,13 +3,11 @@ class Monstro(Criatura):
     def __init__(self, nome, tipo, habitat, vida, forca, defesa, resistencia):
         super().__init__(nome, tipo, habitat, vida, forca, defesa)
         self.resistencia = max(min(resistencia, 50), 0)
-        self.dano = self.get_forca_total()
         self.bonus()
 
-    def imprimir(self):
+    def imprimir_monstro(self):
         super().imprimir()
         print(f"Resistencia: {self.resistencia}")
-        print(f"Dano: {self.dano}")
 
     def get_tipo_completo(self):
         return f"{self.tipo} ({self.habitat})"

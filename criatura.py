@@ -59,6 +59,7 @@ class Criatura():
     
     def calcular_nivel(self):
         return (self.vida + self.forca + self.defesa) // 3 
+    
     def imprimir(self):
         print(f"Nome: {self.nome}")
         print(f"Tipo: {self.tipo}")

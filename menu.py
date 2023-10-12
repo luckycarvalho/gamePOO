@@ -1,5 +1,5 @@
-from monstro import monstros
-from animal import animais
+from monstro import monstros, Monstro
+from animal import animais, Animal
 class Menu:
     def __init__(self):
         self.personagens = ["Animal", "Monstro"]
@@ -57,12 +57,11 @@ class Menu:
             self._personagem_jogador = monstros[num_personagem]
         
     def definir_inimigo(self):
-        
         print("Escolha uma criatura como inimigo: ")
         
         for key, value in enumerate(self.personagens):
-           print(f"{key} - {value}")
-           
+            print(f"{key} - {value}")
+        
         criatura_inimiga = int(input("Digite o número da criatura: "))
         
         while criatura_inimiga < 0 or criatura_inimiga > (len(self.personagens) - 1):
@@ -70,25 +69,31 @@ class Menu:
             criatura_inimiga = int(input("Digite o número da criatura: "))
         
         if self.personagens[criatura_inimiga] == "Animal":
-            
+            personagem_impresso = False
             for i in range(len(animais)):
                 if animais[i] != self._personagem_jogador:
-                    # Verifica se o nível do inimigo é 2x maior que o do jogador
+                    # Verifica se os inimigos são 2x mais fortes que o jogador
                     if (self.personagem_jogador.calcular_nivel() * 2) >= animais[i].calcular_nivel():  
                         print(f"{i} - {animais[i].nome}")
-                    
-            num_inimigo = int(input("Digite o número do personagem inimigo: "))
-            self._personagem_inimigo = animais[num_inimigo]
+                        personagem_impresso = True
+            if not personagem_impresso:
+                print("Todos os animais são muito fortes!")
+            else:
+                num_inimigo = int(input("Digite o número do personagem inimigo: "))
+                self._personagem_inimigo = animais[num_inimigo]
             
         elif self.personagens[criatura_inimiga] == "Monstro":
-            
+            personagem_impresso = False
             for i in range(len(monstros)):
                 if monstros[i] != self._personagem_jogador:
                     if (self.personagem_jogador.calcular_nivel() * 2) >= monstros[i].calcular_nivel(): 
                         print(f"{i} - {monstros[i].nome}") 
-                    
-            num_inimigo = int(input("Digite o número do personagem inimigo: "))      
-            self._personagem_inimigo = monstros[num_inimigo]
+                        personagem_impresso = True
+            if not personagem_impresso:
+                print("Todos os monstros são muito fortes!")
+            else:
+                num_inimigo = int(input("Digite o número do personagem inimigo: "))      
+                self._personagem_inimigo = monstros[num_inimigo]
                 
     def definir_habitat(self):
         
@@ -114,3 +119,4 @@ class Menu:
             self._personagem_inimigo.vida += 10
             self._personagem_inimigo.forca += 5   
             self._personagem_inimigo.defesa += 10
+            

@@ -5,14 +5,12 @@ class Animal(Criatura):
         super().__init__(nome, tipo, habitat, vida, forca, defesa)
         self.tamanho = tamanho
         self.velocidade = max(min(velocidade, 50), 1)
-        self.dano = self.get_forca_total()
         self.bonus()
 
-    def imprimir(self):
+    def imprimir_animal(self):
         super().imprimir()
         print(f"Tamanho: {self.tamanho}")
         print(f"Velocidade: {self.velocidade}")
-        print(f"Dano: {self.dano}")
 
     def get_tipo_completo(self):
         return f"{self.tipo} ({self.habitat})"

@@ -1,28 +1,57 @@
 from menu import Menu
 class Jogo:
     def __init__(self):
-        self.menu = Menu()
+        self.__menu = Menu()
     
-    def iniciar(self):
-        self.menu.definir_personagem()
+    def escolher_personagens(self):
+        # Escolhendo personagens
+        self.__menu.definir_personagem()
         while True:
             print(30*"=")
             print("Atributos do personagem:")
             print(30*"=")
-            print(self.menu.personagem_jogador.imprimir())
-            
-            confirm = int(input("Deseja escolher outro personagem?\n0 - Sim\n1 - Não\n: "))
+            self.__menu.personagem_jogador.imprimir()
+            print("\n0 - (SIM)\n1 - (NÃO)")
+            confirm = int(input("Deseja escolher outro personagem? "))
             
             while confirm < 0 or confirm > 1:
                 print("Digite uma opção válida")
-                confirm = int(input("Deseja escolher outro personagem?\n0 - Sim\n1 - Não\n: "))
+                print("0 - (SIM)\n1 - (NÃO)")
+                confirm = int(input("Deseja escolher outro personagem? "))
             if confirm == 0:
-                self.menu.definir_personagem()
+                self.__menu.definir_personagem()
             else:
                 break
             
-        self.menu.definir_inimigo()
+        print()    
+        self.__menu.definir_inimigo()
+        while True:
+            print(30*"=")
+            print("Atributos do inimigo:")
+            print(30*"=")
+            self.__menu.personagem_inimigo.imprimir()
+            print("\n0 - (SIM)\n1 - (NÃO)")
+            confirm = int(input("Deseja escolher outro inimigo? "))
             
+            while confirm < 0 or confirm > 1:
+                print("Digite uma opção válida")
+                print("0 - (SIM)\n1 - (NÃO)")
+                confirm = int(input("Deseja escolher outro inimigo? "))
+            if confirm == 0:
+                self.__menu.definir_inimigo()
+            else:
+                break
+        
+    def escolher_cenarios(self):
+        print()
+        self.__menu.definir_habitat()
+    
+    def lutar(self):
+        print()
+        print(10 * "=", "BATALHA", 10 * "=")
+              
 jogo = Jogo()
-jogo.iniciar()
+jogo.escolher_personagens()
+jogo.escolher_cenarios()
+jogo.lutar()
     
