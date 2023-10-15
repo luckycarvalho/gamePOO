@@ -23,7 +23,7 @@ class Criatura():
         if not self.morreu and not monstro_alvo.morreu:
             dano = min(monstro_alvo.vida, self.get_forca_total())
             monstro_alvo.vida -= dano
-            print(f"{self.nome} provocou um dano de {dano} no {monstro_alvo.nome}")
+            print(f"{self.nome} provocou um dano de {dano} em {monstro_alvo.nome}")
         else:
             return
 

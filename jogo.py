@@ -2,7 +2,7 @@ from menu import Menu
 class Jogo:
     def __init__(self):
         self.__menu = Menu()
-    
+        
     def escolher_personagens(self):
         # Escolhendo personagens
         self.__menu.definir_personagem()
@@ -47,11 +47,18 @@ class Jogo:
         self.__menu.definir_habitat()
     
     def lutar(self):
+        jogador = self.__menu.personagem_jogador
+        inimigo = self.__menu.personagem_inimigo
         print()
         print(10 * "=", "BATALHA", 10 * "=")
-              
-jogo = Jogo()
-jogo.escolher_personagens()
-jogo.escolher_cenarios()
-jogo.lutar()
+        # teste de batalha
+        while jogador.vida > 0 and inimigo.vida > 0:
+            jogador.atacar(inimigo)
+            inimigo.defender(jogador)
+            inimigo.atacar(jogador)
+            jogador.defender(inimigo)
+        if jogador.vida == 0:
+            print("Você perdeu!")
+        elif inimigo.vida == 0:
+            print(f"{inimigo.nome} perdeu!") 
     
