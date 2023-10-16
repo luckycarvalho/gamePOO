@@ -29,20 +29,17 @@ class Criatura():
 
     def defender(self, ataque):
         if not self.morreu and not ataque.morreu:
-            if not self.desviar():
-                return
+            
             defesa = self.get_defesa_total()
             ataque_inimigo = ataque.get_forca_total()
-            if ataque_inimigo >= defesa:
+            if not self.desviar() and ataque_inimigo > defesa:
                 dano_recebido = (ataque_inimigo - defesa)
                 self.vida -= dano_recebido
                 print(f"{self.nome} recebeu dano de {dano_recebido}")
                 self.defesa -= 1
             else:
-                self.vida += ataque_inimigo
                 print(f"{self.nome} defendeu o ataque")
         else:
-            print(f"{self.nome} morreu!")
             return 
     
     def desviar(self):

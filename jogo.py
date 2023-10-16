@@ -1,4 +1,6 @@
 from menu import Menu
+from random import randint
+from time import sleep
 class Jogo:
     def __init__(self):
         self.__menu = Menu()
@@ -52,13 +54,71 @@ class Jogo:
         print()
         print(10 * "=", "BATALHA", 10 * "=")
         # teste de batalha
-        while jogador.vida > 0 and inimigo.vida > 0:
-            jogador.atacar(inimigo)
-            inimigo.defender(jogador)
-            inimigo.atacar(jogador)
-            jogador.defender(inimigo)
+        while True:
+            print("iniciando...")
+            sleep(.5)
+            print("Agora é a sua vez!")
+            print()
+            print("Digite 'A' para atacar...")
+            
+            while jogador.vida > 0 and inimigo.vida > 0:
+                movimento_inimigo = randint(0, 1)
+                movimento_jogador = input("...").lower()
+                   
+                if movimento_jogador == 'd':
+                    print("Você decidiu defender!")
+                    sleep(1)
+                    jogador.defender(inimigo) 
+                    print("...")
+                    sleep(1) 
+                elif movimento_jogador == 'a': 
+                    print("Você decidiu atacar!")
+                    sleep(1) 
+                    jogador.atacar(inimigo)
+                    print("...")
+                    sleep(1)
+                else:
+                    while True:
+                        print("Opção inválida!")
+                        movimento_jogador = input("...").lower()
+                        if movimento_jogador == 'a' or movimento_jogador == 'd':
+                            break
+                    
+                print("...")
+        
+                if movimento_inimigo == 0:
+                    print(f"{inimigo.nome} decidiu atacar!")
+                    sleep(1)
+                    inimigo.atacar(jogador)
+                    print("...")
+                    sleep(1)
+                else:
+                    print(f"{inimigo.nome} decidiu defender!")
+                    sleep(1)
+                    inimigo.defender(jogador)
+                    print("...")
+                    sleep(1)
+                    
+                print("Digite 'A' para atacar ou 'D' para defender...")
+                       
+            break  
+        
         if jogador.vida == 0:
+            print()
+            sleep(1)
             print("Você perdeu!")
+            print()
+            sleep(1)
         elif inimigo.vida == 0:
-            print(f"{inimigo.nome} perdeu!") 
+            print()
+            sleep(1)
+            print(f"{inimigo.nome} perdeu!")
+            print()
+            sleep(1)
+            
+        print(f"Informações do jogador:")
+        jogador.imprimir()
+        print()
+        print("Informações do inimigo:") 
+        inimigo.imprimir()
     
