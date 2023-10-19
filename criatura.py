@@ -20,7 +20,9 @@ class Criatura():
         return self.vida <= 0
 
     def atacar(self, monstro_alvo):
+        # verifica se algum dos personagens morreu
         if not self.morreu and not monstro_alvo.morreu:
+            # O dano não pode ser maior que a vida.
             dano = min(monstro_alvo.vida, self.get_forca_total())
             monstro_alvo.vida -= dano
             print(f"{self.nome} provocou um dano de {dano} em {monstro_alvo.nome}")
@@ -32,6 +34,7 @@ class Criatura():
             
             defesa = self.get_defesa_total()
             ataque_inimigo = ataque.get_forca_total()
+            # caso o personagem não consiga desviar ou o ataque inimigo seja forte, o dano é subtraido pela defesa
             if not self.desviar() and ataque_inimigo > defesa:
                 dano_recebido = (ataque_inimigo - defesa)
                 self.vida -= dano_recebido

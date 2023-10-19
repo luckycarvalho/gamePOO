@@ -16,6 +16,7 @@ class Animal(Criatura):
         return f"{self.tipo} ({self.habitat})"
     
     def bonus(self):
+        # Bonus de velocidade e forca de acordo com o tamanho do animal
         if self.tamanho == "Grande":
             self.forca += 10
             self.velocidade -= 10
@@ -24,6 +25,7 @@ class Animal(Criatura):
             self.velocidade += 10
     
     def desviar(self):
+        #Bonus de velocidade de acordo com o tamanho do animal
         if self.tamanho == "Pequeno":
             chance = randint(0, 75)
         else: 

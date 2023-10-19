@@ -21,35 +21,36 @@ class Menu:
     
     def definir_personagem(self):
         print("Escolha uma criatura para jogar")
+        #Laço usado constantemente para percorrer uma lista
         for key, value in enumerate(self.personagens):
            print(f"{key} - {value}")
                    
         num_criatura = int(input("Digite o número da criatura: "))
-        
+        #validação
         while num_criatura < 0 or num_criatura > (len(self.personagens) - 1):
             print("Digite um número válido")
             num_criatura = int(input("Digite o número da criatura: "))
-            
+        # verifica se o jogador escolheu o tipo animal    
         if self.personagens[num_criatura] == "Animal": 
-            
+            #percorre e exibe a lista de personagens do tipo animal disponível
             for i in range(len(animais)):
                 print(f"{i} - {animais[i].nome}")
         
             num_personagem = int(input("Digite o número do personagem: "))
-            
+            #validação
             while num_personagem < 0 or num_personagem > (len(animais) - 1):
                  print("Digite um número válido")
                  num_personagem = int(input("Digite o número do personagem: "))
          
             self._personagem_jogador = animais[num_personagem]     
-            
+        #verifica se o jogador escolheu o tipo monstro    
         elif self.personagens[num_criatura] == "Monstro":
-            
+            #percorre e exibe a lista de personagens do tipo monstro disponível
             for i in range(len(monstros)):
                 print(f"{i} - {monstros[i].nome}")
                 
             num_personagem = int(input("Digite o número do personagem: "))
-            
+            #validação
             while num_personagem < 0 or num_personagem > (len(monstros) - 1):
                  print("Digite um número válido")
                  num_personagem = int(input("Digite o número do personagem: "))
@@ -63,7 +64,7 @@ class Menu:
             print(f"{key} - {value}")
         
         criatura_inimiga = int(input("Digite o número da criatura: "))
-        
+        # validação
         while criatura_inimiga < 0 or criatura_inimiga > (len(self.personagens) - 1):
             print("Digite um número válido")
             criatura_inimiga = int(input("Digite o número da criatura: "))
@@ -77,6 +78,7 @@ class Menu:
                     if (self.personagem_jogador.calcular_nivel() * 2) >= animais[i].calcular_nivel():  
                         print(f"{i} - {animais[i].nome}")
                         personagem_impresso = True
+            #Caso todos os inimigos sejam mais fortes
             if not personagem_impresso:
                 print("Todos os animais são muito fortes!")
             else:
@@ -85,7 +87,7 @@ class Menu:
             
         elif self.personagens[criatura_inimiga] == "Monstro":
             personagem_impresso = False
-            for i in range(len(monstros)):
+            for i in range(len(monstros)): # Aqui o mesmo processo é repetido
                 if monstros[i] != self._personagem_jogador:
                     if (self.personagem_jogador.calcular_nivel() * 2) >= monstros[i].calcular_nivel(): 
                         print(f"{i} - {monstros[i].nome}") 
@@ -104,7 +106,7 @@ class Menu:
            print(f"{key} - {value}")
            
         num = int(input("Digite o número do cenário: "))
-        
+        #validação
         while num < 0 or num > (len(self.cenarios) - 1):
             print("Digite um número válido")
             num = int(input("Digite o número do cenário: "))
@@ -112,6 +114,7 @@ class Menu:
         self.__verificar_habitat()
     
     def __verificar_habitat(self):
+        #Aumenta os pontos caso o habitat de algum dos personagens seja igual ao do cenário de batalha
         if self.personagem_jogador.habitat == self.habitat_batalha:
             self._personagem_jogador.vida += 10
             self._personagem_jogador.forca += 5

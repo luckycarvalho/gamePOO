@@ -13,6 +13,7 @@ class Monstro(Criatura):
         return f"{self.tipo} ({self.habitat})"
     
     def bonus(self):
+        # bonus pela resistencia do monstro
         self.defesa += (self.resistencia * (50/100))
         
 monstros = [
