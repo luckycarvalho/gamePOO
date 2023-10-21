@@ -1,5 +1,6 @@
 from menu import Menu
 from random import randint
+from time import sleep
 class Jogo:
     def __init__(self):
         self.__menu = Menu()
@@ -13,14 +14,33 @@ class Jogo:
         return self.__inimigo
           
     def __definir_personagens(self):
+        #imprime os atributos do personagem e valida a escolha do jogador
+        def confirmar(personagem):
+            print(30 * "=")
+            print(5 * " ", "Dados do personagem")
+            print(30 * "=")
+            personagem.imprimir()
+            
+            while True:
+                confirm = input("Deseja escolher outro personagem?").lower()
+                if confirm in ["sim", "s"]:
+                    print()
+                    personagem = self.__menu.escolher_personagem()
+                else:
+                    break
+                
         print(30 * "=")
         print(5 * " ", "Definindo jogador")
         print(30 * "=")
         self.__jogador = self.__menu.escolher_personagem()
+        confirmar(self.__jogador)
         print(30 * "=")
         print(5 * " ", "Definindo inimigo:")
         print(30 * "=")
         self.__inimigo = self.__menu.escolher_personagem()
+        confirmar(self.__inimigo)
+        
+        self.__verificar_nivel(self.__jogador, self.__inimigo)
         
     def __definir_cenario(self):
         print()
@@ -35,15 +55,38 @@ class Jogo:
         def lutar_criatura(criatura, adversario, movimento):
             if criatura.vida > 0:
                 if movimento == "a":
+                    #Exibe uma mensagem da decisão do personagem
+                    if criatura == self.jogador:
+                        print()
+                        print("Você decidiu atacar!")
+                        sleep(1)
+                    else:
+                        print()
+                        print("O inimigo decidiu atacar!")
+                        sleep(1)
+                        
                     criatura.atacar(adversario)
+                    sleep(1)
                 elif movimento == "d":
+                    if criatura == self.jogador:
+                        print()
+                        print("Você decidiu defender!")
+                        sleep(1)
+                    else:
+                        print()
+                        print("O inimigo decidiu defender!")
+                        sleep(1)
+                        
                     criatura.defender(adversario)
+                    sleep(1)
             else:
                 return False
             return True
         # laço para que o jogador controle a luta
         while True:
+            print()
             movimento_jogador = input("Digite 'A' para atacar ou 'D' para defender: ").lower()
+            
             if movimento_jogador in ["a", "d"]:
                 jogador_vivo = lutar_criatura(self.jogador, self.inimigo, movimento_jogador)
             else:
@@ -69,7 +112,13 @@ class Jogo:
             self.inimigo.vida += 10
             self.inimigo.forca += 5   
             self.inimigo.defesa += 10
-                
+            
+    def __verificar_nivel(self, jogador, inimigo):
+        # Verifica se o inimigo é 2x mais forte que o jogador
+        if (jogador.calcular_nivel() * 2) <= inimigo.calcular_nivel():
+            continar = input("Seu inimigo é muito forte, deseja continuar? ").lower()
+            if continar in ["não", "nao", "n"]:
+                inimigo = self.__menu.escolher_personagem()        
                   
     def iniciar(self):
        self.__definir_personagens()
