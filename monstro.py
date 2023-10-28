@@ -9,9 +9,6 @@ class Monstro(Criatura):
         super().imprimir()
         print(f"Resistencia: {self.resistencia}")
 
-    def get_tipo_completo(self):
-        return f"{self.tipo} ({self.habitat})"
-    
     def bonus(self):
         # bonus pela resistencia do monstro
         self.defesa += (self.resistencia * (50/100))

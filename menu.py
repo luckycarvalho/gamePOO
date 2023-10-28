@@ -27,7 +27,7 @@ class Menu:
         for key in self.personagens.keys():
             print(key)
         
-        tipo_criatura = input("Digite o tipo da criatura: ")
+        tipo_criatura = input("Digite o tipo da criatura: ").capitalize().strip()
         
         if tipo_criatura not in self.personagens:
             raise ValueError("Digite um tipo válido")

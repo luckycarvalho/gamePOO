@@ -4,6 +4,8 @@ from time import sleep
 class Jogo:
     def __init__(self):
         self.__menu = Menu()
+        self.__jogador = object
+        self.__inimigo = object
         
     @property
     def jogador(self):
@@ -14,32 +16,42 @@ class Jogo:
         return self.__inimigo
           
     def __definir_personagens(self):
-        #imprime os atributos do personagem e valida a escolha do jogador
-        def confirmar(personagem):
+        
+        def escolher_jogador():
             print(30 * "=")
-            print(5 * " ", "Dados do personagem")
+            print(5 * " ", "Definindo jogador")
             print(30 * "=")
-            personagem.imprimir()
+            self.__jogador = self.__menu.escolher_personagem()
             
+        def escolher_inimigo():
+            print(30 * "=")
+            print(5 * " ", "Definindo inimigo:")
+            print(30 * "=")
+            self.__inimigo = self.__menu.escolher_personagem()
+            
+        #imprime os atributos do personagem e valida a escolha do jogador    
+        def confirmar(personagem):
             while True:
-                confirm = input("Deseja escolher outro personagem?").lower()
+                print(30 * "=")
+                print(5 * " ", "Dados do personagem")
+                print(30 * "=")
+                personagem.imprimir()
+                confirm = input("Deseja escolher outro personagem?").lower().strip()
                 if confirm in ["sim", "s"]:
                     print()
-                    personagem = self.__menu.escolher_personagem()
+                    if personagem == self.__jogador:
+                        escolher_jogador()
+                    else:
+                        escolher_inimigo()
                 else:
                     break
                 
-        print(30 * "=")
-        print(5 * " ", "Definindo jogador")
-        print(30 * "=")
-        self.__jogador = self.__menu.escolher_personagem()
+        escolher_jogador()
         confirmar(self.__jogador)
-        print(30 * "=")
-        print(5 * " ", "Definindo inimigo:")
-        print(30 * "=")
-        self.__inimigo = self.__menu.escolher_personagem()
-        confirmar(self.__inimigo)
         
+        escolher_inimigo()
+        confirmar(self.__inimigo) 
+               
         self.__verificar_nivel(self.__jogador, self.__inimigo)
         
     def __definir_cenario(self):
@@ -85,7 +97,7 @@ class Jogo:
         # laço para que o jogador controle a luta
         while True:
             print()
-            movimento_jogador = input("Digite 'A' para atacar ou 'D' para defender: ").lower()
+            movimento_jogador = input("Digite 'A' para atacar ou 'D' para defender: ").lower().strip()
             
             if movimento_jogador in ["a", "d"]:
                 jogador_vivo = lutar_criatura(self.jogador, self.inimigo, movimento_jogador)
@@ -116,10 +128,15 @@ class Jogo:
     def __verificar_nivel(self, jogador, inimigo):
         # Verifica se o inimigo é 2x mais forte que o jogador
         if (jogador.calcular_nivel() * 2) <= inimigo.calcular_nivel():
-            continar = input("Seu inimigo é muito forte, deseja continuar? ").lower()
+            continar = input("Seu inimigo é muito forte, deseja continuar? ").lower().strip()
             if continar in ["não", "nao", "n"]:
-                inimigo = self.__menu.escolher_personagem()        
-                  
+                self.__inimigo = self.__menu.escolher_personagem()  
+        # verifica se o jogador é 2x mais forte que o inimigo              
+        elif (inimigo.calcular_nivel() * 2) <= jogador.calcular_nivel():
+            continar = input("Seu inimigo é muito fraco, deseja continuar? ").lower().strip()
+            if continar in ["não", "nao", "n"]:
+                self.__inimigo = self.__menu.escolher_personagem()  
+                
     def iniciar(self):
        self.__definir_personagens()
        self.__definir_cenario()

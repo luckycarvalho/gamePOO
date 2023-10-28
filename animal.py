@@ -11,10 +11,7 @@ class Animal(Criatura):
         super().imprimir()
         print(f"Tamanho: {self.tamanho}")
         print(f"Velocidade: {self.velocidade}")
-
-    def get_tipo_completo(self):
-        return f"{self.tipo} ({self.habitat})"
-    
+ 
     def bonus(self):
         # Bonus de velocidade e forca de acordo com o tamanho do animal
         if self.tamanho == "Grande":
